@@ -1,0 +1,14 @@
+
+# Archivos privados
+.env
+.env.*
+!.env.example
+
+# Dependencias
+**/vendor/
+**/node_modules/
+
+# Datos locales
+**/pgdata/
+**/postgres_data/
+**/pgadmin_data/
