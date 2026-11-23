@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Costos;
 
 use Illuminate\Database\Eloquent\Model;
 
