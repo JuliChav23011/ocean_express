@@ -7,8 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class DetalleAsiento extends Model
 {
     protected $table = 'detalles_asientos';
-
     protected $guarded = ['id'];
+
+    protected $casts = [
+        'debe' => 'decimal:2',
+        'haber' => 'decimal:2',
+    ];
 
     public function asientoContable()
     {
@@ -19,5 +23,4 @@ class DetalleAsiento extends Model
     {
         return $this->belongsTo(CuentaContable::class, 'cuenta_contable_id');
     }
-
 }
