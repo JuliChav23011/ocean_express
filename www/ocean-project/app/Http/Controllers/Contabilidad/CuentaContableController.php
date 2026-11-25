@@ -33,7 +33,7 @@ class CuentaContableController extends Controller
             $query->where('activa', $request->estado === 'activa');
         }
 
-        $cuentas = $query->orderBy('codigo')->get();
+        $cuentas = $query->orderBy('codigo')->paginate(20)->withQueryString();
 
         return view('contabilidad.cuentas.index', compact('cuentas', 'empresa'));
     }
