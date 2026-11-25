@@ -4,7 +4,7 @@ use App\Http\Controllers\Contabilidad\AsientoContableController;
 use App\Http\Controllers\Contabilidad\CierreContableController;
 use App\Http\Controllers\Contabilidad\ContabilidadController;
 use App\Http\Controllers\Contabilidad\CuentaContableController;
-use App\Http\Controllers\Contabilidad\LibroContableController;
+use App\Http\Controllers\Contabilidad\LibrosContablesController;
 use App\Http\Controllers\Contabilidad\PeriodoContableController;
 use App\Http\Controllers\Contabilidad\ReporteFinancieroController;
 use Illuminate\Support\Facades\Route;
@@ -39,17 +39,17 @@ Route::prefix('contabilidad')->name('contabilidad.')->group(function () {
     Route::get('ajustes', [AsientoContableController::class, 'ajustes'])->name('ajustes.index');
 
     // libros contables
-    Route::get('libro-diario', [LibroContableController::class, 'diario'])->name('libros.diario');
-    Route::get('libro-mayor', [LibroContableController::class, 'mayor'])->name('libros.mayor');
-    Route::get('balance-comprobacion', [LibroContableController::class, 'balanceComprobacion'])->name('libros.balance');
+    Route::get('libro-diario', [LibrosContablesController::class, 'diario'])->name('libros.diario');
+    Route::get('libro-mayor', [LibrosContablesController::class, 'mayor'])->name('libros.mayor');
+    Route::get('balance-comprobacion', [LibrosContablesController::class, 'balanceComprobacion'])->name('libros.balance');
 
-    // 8. Estados financieros
+    // estados financieros
     Route::get('estado-resultados', [ReporteFinancieroController::class, 'estadoResultados'])->name('reportes.resultados');
     Route::get('balance-general', [ReporteFinancieroController::class, 'balanceGeneral'])->name('reportes.balance');
     Route::get('cambios-patrimonio', [ReporteFinancieroController::class, 'cambiosPatrimonio'])->name('reportes.patrimonio');
     Route::get('flujo-efectivo', [ReporteFinancieroController::class, 'flujoEfectivo'])->name('reportes.flujo');
 
-    // 9. Cierre contable
+    // aqui el Cierre contable
     Route::get('cierre', [CierreContableController::class, 'index'])->name('cierre.index');
     Route::post('cierre/{periodo}/ejecutar', [CierreContableController::class, 'ejecutar'])->name('cierre.ejecutar');
 });
