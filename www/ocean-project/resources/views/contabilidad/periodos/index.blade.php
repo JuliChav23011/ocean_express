@@ -35,9 +35,9 @@
 
         <div class="col-lg-8">
             <div class="ocean-card p-0 overflow-hidden">
-                <div class="table-responsive">
-                    <table class="table ocean-table mb-0">
-                        <thead>
+                <div class="table-responsive" style="max-height: 480px; overflow-y: auto;">
+                    <table class="table ocean-table table-hover mb-0">
+                        <thead class="position-sticky top-0" style="z-index: 2;">
                             <tr>
                                 <th>Período</th>
                                 <th>Fecha Inicio</th>
@@ -76,37 +76,6 @@
                                         </form>
                                     </td>
                                 </tr>
-
-                                <div class="modal fade" id="editPeriodo{{ $periodo->id }}" tabindex="-1">
-                                    <div class="modal-dialog">
-                                        <form action="{{ route('contabilidad.periodos.update', $periodo) }}" method="POST" class="modal-content">
-                                            @csrf
-                                            @method('PUT')
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Editar Período: {{ $periodo->nombre }}</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Nombre</label>
-                                                    <input type="text" name="nombre" class="form-control" value="{{ $periodo->nombre }}" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Fecha Inicio</label>
-                                                    <input type="date" name="fecha_inicio" class="form-control" value="{{ $periodo->fecha_inicio->format('Y-m-d') }}" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Fecha Fin</label>
-                                                    <input type="date" name="fecha_fin" class="form-control" value="{{ $periodo->fecha_fin->format('Y-m-d') }}" required>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                <button type="submit" class="btn btn-ocean">Guardar Cambios</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
                             @empty
                                 <tr>
                                     <td colspan="6" class="text-center py-4 text-muted">No hay períodos registrados.</td>
@@ -115,7 +84,49 @@
                         </tbody>
                     </table>
                 </div>
+
+                @if($periodos->hasPages())
+                    <div class="d-flex flex-wrap justify-content-between align-items-center px-3 py-2 border-top bg-light">
+                        <small class="text-muted">
+                            Mostrando {{ $periodos->firstItem() }}–{{ $periodos->lastItem() }} de {{ $periodos->total() }} períodos
+                        </small>
+                        {{ $periodos->links('pagination::bootstrap-5') }}
+                    </div>
+                @endif
             </div>
         </div>
     </div>
+
+    @foreach($periodos as $periodo)
+        <div class="modal fade" id="editPeriodo{{ $periodo->id }}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <form action="{{ route('contabilidad.periodos.update', $periodo) }}" method="POST" class="modal-content">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Período: {{ $periodo->nombre }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" name="nombre" class="form-control" value="{{ $periodo->nombre }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Fecha Inicio</label>
+                            <input type="date" name="fecha_inicio" class="form-control" value="{{ $periodo->fecha_inicio->format('Y-m-d') }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Fecha Fin</label>
+                            <input type="date" name="fecha_fin" class="form-control" value="{{ $periodo->fecha_fin->format('Y-m-d') }}" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-ocean">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endforeach
 @endsection

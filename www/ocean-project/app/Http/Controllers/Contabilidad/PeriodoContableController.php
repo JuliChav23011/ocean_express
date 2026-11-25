@@ -15,7 +15,8 @@ class PeriodoContableController extends Controller
         $periodos = PeriodoContable::withCount('asientosContables')
             ->where('empresa_id', $empresa->id)
             ->orderByDesc('fecha_inicio')
-            ->get();
+            ->paginate(15)
+            ->withQueryString();
 
         return view('contabilidad.periodos.index', compact('periodos', 'empresa'));
     }
