@@ -423,3 +423,49 @@ body {
         font-size: 18px;
     }
 }
+
+.dashboard-chart-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+
+.dashboard-chart-placeholder {
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #f8fafc;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.dashboard-empty-state {
+    min-height: 170px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #f8fafc;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+
+    .dashboard-chart-container {
+        height: 250px;
+    }
+
+    .dashboard-chart-placeholder {
+        min-height: 220px;
+    }
+
+    .dashboard-empty-state {
+        min-height: 150px;
+    }
+}
+
