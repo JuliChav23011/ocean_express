@@ -213,12 +213,44 @@
         </div>
 
         <div class="card-body">
+@forelse($estudio->alternativas as $alternativa)
 
-            @forelse($estudio->alternativas as $alternativa)
+    <div class="border rounded p-3 mb-2">
 
-                <div class="border rounded p-3 mb-2">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+            <div>
+
+                <h6 class="fw-bold mb-1">
+                    {{ $alternativa->codigo }} -
                     {{ $alternativa->nombre }}
-                </div>
+                </h6>
+
+                <small class="text-muted">
+                    Inversión inicial:
+                    {{ $estudio->moneda }}
+                    {{ number_format($alternativa->inversion_inicial, 2) }}
+                </small>
+
+                @if($alternativa->activa)
+                    <span class="badge bg-success">Activa</span>
+                @else
+                    <span class="badge bg-secondary">Inactiva</span>
+                @endif
+
+            </div>
+
+            <a href="{{ route('economia.alternativas.show', $alternativa) }}"
+               class="btn btn-sm btn-outline-primary">
+
+                <i class="bi bi-eye"></i>
+                Ver detalles
+
+            </a>
+
+        </div>
+
+    </div>
 
             @empty
 
@@ -234,10 +266,25 @@
 
             @endforelse
 
-            <button class="btn btn-outline-secondary" disabled>
-                <i class="bi bi-plus-circle"></i>
-                Agregar alternativa
-            </button>
+            <div class="d-flex flex-wrap gap-2 mt-3">
+
+    <a href="{{ route('economia.alternativas.create', ['estudio_id' => $estudio->id]) }}"
+       class="btn btn-primary">
+
+        <i class="bi bi-plus-circle"></i>
+        Agregar alternativa
+
+    </a>
+
+    <a href="{{ route('economia.alternativas.index', ['estudio_id' => $estudio->id]) }}"
+       class="btn btn-outline-primary">
+
+        <i class="bi bi-list-ul"></i>
+        Ver todas las alternativas
+
+    </a>
+
+</div>
 
         </div>
 
