@@ -61,9 +61,20 @@
                         {{ $modulo[2] }}
                     </p>
 
-                    <button class="btn btn-outline-secondary" disabled>
-                        En desarrollo
-                    </button>
+                 @if($modulo[1] === 'Alternativas de inversión')
+
+    <a href="{{ route('economia.alternativas.index') }}"
+       class="btn btn-primary">
+        Administrar alternativas
+    </a>
+
+@else
+
+    <button class="btn btn-outline-secondary" disabled>
+        En desarrollo
+    </button>
+
+@endif
 
                 </div>
             </div>
